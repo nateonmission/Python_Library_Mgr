@@ -3,11 +3,11 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
-from .Author import Author
+from models.Author import Author
 
-Base = declarative_base
+BookBase = declarative_base()
 
-class Book():
+class Book(BookBase):
     __tablename__ = "book"
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(127))
@@ -18,6 +18,6 @@ class Book():
     rating = Column(Integer)
     created_timestamp = Column(DateTime(timezone=True), server_default=func.now())
     late_update_timestamp = Column(DateTime(timezone=True), onupdate=func.now())
-    author_id = Column(Integer, ForeignKey("author.id"))
+    author_id = Column(Integer, ForeignKey(Author.id))
 
-    author = relationship("Author")
+    author = relationship(Author)

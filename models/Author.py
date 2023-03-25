@@ -3,11 +3,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
-from .Book import Book
+AuthorBase = declarative_base()
 
-Base = declarative_base
-
-class Author():
+class Author(AuthorBase):
     __tablename__ = "author"
     id = Column(Integer, primary_key=True, index=True)
     given_name = Column(String)
